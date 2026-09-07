@@ -8,6 +8,8 @@
     <string name="step1_subtitle">Откроются системные настройки — включите Voxa в списке</string>
     <string name="step2_title">Выбрать клавиатуру</string>
     <string name="step2_subtitle">Понадобится там, где будете печатать голосом</string>
+    <string name="step1_subtitle_done">Готово — клавиатура включена</string>
+    <string name="step2_subtitle_done">Готово — Voxa выбрана активной клавиатурой</string>
     <string name="footer_note">Распознавание речи работает офлайн — системным движком телефона, без отправки звука в сеть</string>
     <string name="activation_title">Активация</string>
     <string name="activation_subtitle">Введите ключ, который вам прислали при покупке</string>
@@ -18,8 +20,8 @@
     <string name="activation_error_network">Нет соединения с интернетом — для активации нужен интернет один раз</string>
     <string name="activation_checking">Проверяем…</string>
     <string name="keyboard_hint_not_activated">Не активировано — откройте приложение Voxa</string>
-    <string name="keyboard_hint_idle">Держите — говорите</string>
-    <string name="keyboard_hint_listening">Слушаю…</string>
+    <string name="keyboard_hint_idle">Нажмите и говорите</string>
+    <string name="keyboard_hint_listening">Слушаю… нажмите ещё раз, чтобы закончить</string>
     <string name="keyboard_hint_no_permission">Нет доступа к микрофону — откройте приложение Voxa</string>
     <string name="keyboard_hint_error">Не распознано, попробуйте ещё раз</string>
 </resources>

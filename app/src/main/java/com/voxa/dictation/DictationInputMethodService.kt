@@ -9,7 +9,6 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.view.KeyEvent
-import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
@@ -31,21 +30,10 @@ class DictationInputMethodService : InputMethodService(), RecognitionListener {
         val b = KeyboardViewBinding.inflate(layoutInflater)
         binding = b
 
-        b.btnMic.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    v.isPressed = true
-                    startListening()
-                    true
-                }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    v.isPressed = false
-                    stopListening()
-                    v.performClick()
-                    true
-                }
-                else -> false
-            }
+        // Тап — старт, повторный тап — стоп. Удержание неудобно на клавиатуре
+        // (палец и так занят набором), поэтому не "держи-говори", а переключатель.
+        b.btnMic.setOnClickListener {
+            if (isListening) stopListening() else startListening()
         }
 
         b.btnBackspace.setOnClickListener { sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL) }
