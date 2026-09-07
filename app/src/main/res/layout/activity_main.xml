@@ -93,8 +93,9 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="15sp"
-                android:inputType="textVisiblePassword"
+                android:inputType="number"
                 android:singleLine="true"
+                android:maxLength="14"
                 android:imeOptions="actionDone" />
 
             <TextView

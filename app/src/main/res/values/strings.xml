@@ -11,7 +11,7 @@
     <string name="footer_note">Распознавание речи работает офлайн — системным движком телефона, без отправки звука в сеть</string>
     <string name="activation_title">Активация</string>
     <string name="activation_subtitle">Введите ключ, который вам прислали при покупке</string>
-    <string name="activation_hint">VOXA-XXXXXXXX-XXXXXX</string>
+    <string name="activation_hint">1234-5678-9012</string>
     <string name="activation_button">Активировать</string>
     <string name="activation_error">Неверный ключ, проверьте и попробуйте снова</string>
     <string name="keyboard_hint_not_activated">Не активировано — откройте приложение Voxa</string>

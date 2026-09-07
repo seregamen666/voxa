@@ -1,14 +1,16 @@
 package com.voxa.dictation
 
 import android.content.Context
+import java.math.BigInteger
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
 /**
  * Офлайн-проверка лицензионного ключа: тот же HMAC-секрет, что и в
- * tools/generate_key.py. Ключ вида VOXA-XXXXXXXX-XXXXXX, последний блок —
- * подпись первого. Валидные ключи не хранятся на сервере — если секрет
- * когда-нибудь меняется, поменяйте его и в generate_key.py.
+ * tools/generate_key.py. Ключ — 12 цифр (1234-5678-9012): первые 6 —
+ * серийный номер, последние 6 — его подпись. Валидные ключи не хранятся
+ * на сервере — если секрет когда-нибудь меняется, поменяйте его и в
+ * generate_key.py.
  */
 object License {
 
@@ -19,18 +21,21 @@ object License {
     private fun secretBytes(): ByteArray =
         SECRET_HEX.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
 
-    private fun sign(serial: String): String {
+    private fun checksum(serial: String): String {
         val mac = Mac.getInstance("HmacSHA256")
         mac.init(SecretKeySpec(secretBytes(), "HmacSHA256"))
         val digest = mac.doFinal(serial.toByteArray(Charsets.UTF_8))
-        return digest.joinToString("") { "%02X".format(it) }.take(6)
+        val hex = digest.joinToString("") { "%02x".format(it) }
+        val value = BigInteger(hex, 16).mod(BigInteger.valueOf(1_000_000))
+        return value.toString().padStart(6, '0')
     }
 
     fun isValid(rawKey: String): Boolean {
-        val parts = rawKey.trim().uppercase().replace(" ", "").split("-")
-        if (parts.size != 3 || parts[0] != "VOXA") return false
-        val (_, serial, sig) = parts
-        return sign(serial) == sig
+        val raw = rawKey.trim().replace(" ", "").replace("-", "")
+        if (raw.length != 12 || !raw.all { it.isDigit() }) return false
+        val serial = raw.substring(0, 6)
+        val sum = raw.substring(6, 12)
+        return checksum(serial) == sum
     }
 
     fun isActivated(context: Context): Boolean {
@@ -43,7 +48,7 @@ object License {
         if (!isValid(rawKey)) return false
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .edit()
-            .putString(KEY_ACTIVATED, rawKey.trim().uppercase())
+            .putString(KEY_ACTIVATED, rawKey.trim())
             .apply()
         return true
     }
