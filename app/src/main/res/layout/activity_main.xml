@@ -58,6 +58,74 @@
             android:layout_weight="1" />
 
         <LinearLayout
+            android:id="@+id/activationGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_step_card"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activation_title"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/activation_subtitle"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/etLicenseKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_key_button"
+                android:padding="14dp"
+                android:hint="@string/activation_hint"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="15sp"
+                android:inputType="textVisiblePassword"
+                android:singleLine="true"
+                android:imeOptions="actionDone" />
+
+            <TextView
+                android:id="@+id/tvActivationError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/activation_error"
+                android:textColor="@color/accent_recording"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnActivate"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_button_primary"
+                android:text="@string/activation_button"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/stepsGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        <LinearLayout
             android:id="@+id/btnEnableKeyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -150,6 +218,8 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>
+        </LinearLayout>
+
         </LinearLayout>
 
         <Space

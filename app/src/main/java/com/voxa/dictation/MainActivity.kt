@@ -13,19 +13,15 @@ import com.voxa.dictation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     private val requestMicPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { /* результат виден в логах системы */ }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestMicPermission.launch(Manifest.permission.RECORD_AUDIO)
-        }
 
         binding.btnEnableKeyboard.setOnClickListener {
             startActivity(Intent(Settings.ACTION_INPUT_METHOD_SETTINGS))
@@ -34,6 +30,38 @@ class MainActivity : AppCompatActivity() {
         binding.btnSwitchKeyboard.setOnClickListener {
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showInputMethodPicker()
+        }
+
+        binding.btnActivate.setOnClickListener { tryActivate() }
+
+        refreshActivationState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshActivationState()
+    }
+
+    private fun refreshActivationState() {
+        val activated = License.isActivated(this)
+        binding.activationGroup.visibility = if (activated) android.view.View.GONE else android.view.View.VISIBLE
+        binding.stepsGroup.visibility = if (activated) android.view.View.VISIBLE else android.view.View.GONE
+
+        if (activated &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestMicPermission.launch(Manifest.permission.RECORD_AUDIO)
+        }
+    }
+
+    private fun tryActivate() {
+        val key = binding.etLicenseKey.text.toString()
+        if (License.activate(this, key)) {
+            binding.tvActivationError.visibility = android.view.View.GONE
+            refreshActivationState()
+        } else {
+            binding.tvActivationError.visibility = android.view.View.VISIBLE
         }
     }
 }

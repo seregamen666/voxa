@@ -70,6 +70,10 @@ class DictationInputMethodService : InputMethodService(), RecognitionListener {
 
     private fun startListening() {
         if (isListening) return
+        if (!License.isActivated(this)) {
+            binding?.tvHint?.text = getString(R.string.keyboard_hint_not_activated)
+            return
+        }
         if (!hasMicPermission()) {
             binding?.tvHint?.text = getString(R.string.keyboard_hint_no_permission)
             return
