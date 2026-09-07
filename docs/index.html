@@ -1,0 +1,573 @@
+<title>Скачать Voxa</title>
+<meta name="description" content="Voxa — голосовой ввод для Windows и Android. Зажал клавишу, сказал — текст сам появился. Работает локально, без отправки звука в облако.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#f7f3df;
+    --bg-alt:#efe8c9;
+    --surface:#fffdf2;
+    --ink:#18160f;
+    --ink-soft:#5b5744;
+    --ink-faint:#8c876e;
+    --line:rgba(24,22,15,.14);
+    --line-strong:rgba(24,22,15,.28);
+    --accent:#ddc4f2;
+    --accent-strong:#c9a3ec;
+    --on-accent:#1c1424;
+    --teal:#0e4a40;
+    --teal-soft:#bcdcd1;
+    --cream-on-teal:#f6f1da;
+    --shadow:0 2px 0 var(--ink);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15130f;
+      --bg-alt:#1d1a13;
+      --surface:#211e17;
+      --ink:#f4f0de;
+      --ink-soft:#c3bda3;
+      --ink-faint:#8c8770;
+      --line:rgba(244,240,222,.14);
+      --line-strong:rgba(244,240,222,.28);
+      --accent:#c9a3ec;
+      --accent-strong:#dcc0f4;
+      --on-accent:#18101f;
+      --teal:#134a40;
+      --teal-soft:#9fcabd;
+      --cream-on-teal:#f2ecd2;
+      --shadow:0 2px 0 rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15130f;
+    --bg-alt:#1d1a13;
+    --surface:#211e17;
+    --ink:#f4f0de;
+    --ink-soft:#c3bda3;
+    --ink-faint:#8c8770;
+    --line:rgba(244,240,222,.14);
+    --line-strong:rgba(244,240,222,.28);
+    --accent:#c9a3ec;
+    --accent-strong:#dcc0f4;
+    --on-accent:#18101f;
+    --teal:#134a40;
+    --teal-soft:#9fcabd;
+    --cream-on-teal:#f2ecd2;
+    --shadow:0 2px 0 rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Work Sans",-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:64px;
+  }
+  ::selection{ background:var(--accent); color:var(--on-accent); }
+  a{ color:inherit; }
+
+  .wrap{ max-width:760px; margin:0 auto; padding:0 26px; }
+  .mono{ font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; }
+
+  .display{
+    font-family:"Instrument Serif",Georgia,serif;
+    font-weight:400;
+    line-height:1.04;
+    text-wrap:balance;
+    margin:0;
+  }
+  .display em{ font-style:italic; color:inherit; }
+
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    display:flex; align-items:center; gap:9px;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.6; flex:none; }
+
+  /* ---------- nav ---------- */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 0;
+  }
+  .wordmark{ font-family:"Instrument Serif",serif; font-size:1.5rem; }
+  .btn{
+    font-family:"Work Sans",sans-serif;
+    font-weight:600;
+    font-size:.92rem;
+    padding:11px 20px;
+    border-radius:100px;
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:9px;
+    border:1.5px solid var(--ink);
+    white-space:nowrap;
+  }
+  .btn-nav{ background:var(--accent); color:var(--on-accent); box-shadow:var(--shadow); font-size:.84rem; padding:9px 16px; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:36px 0 8px; text-align:center; }
+  .hero .eyebrow{ justify-content:center; }
+  .hero h1{
+    margin-top:20px;
+    font-size:clamp(2.6rem,8vw,4.4rem);
+    max-width:15em;
+    margin-left:auto; margin-right:auto;
+  }
+  .hero .lede{
+    margin:22px auto 0;
+    max-width:32em;
+    font-size:1.1rem;
+    line-height:1.55;
+    color:var(--ink-soft);
+  }
+  .hero-cta{ margin-top:32px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .btn-primary{
+    background:var(--accent);
+    color:var(--on-accent);
+    box-shadow:var(--shadow);
+    padding:15px 28px;
+    font-size:1rem;
+  }
+  .btn-primary{ transition:transform .15s ease, box-shadow .15s ease; }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 5px 0 var(--ink); }
+  .btn-primary:active{ transform:translateY(2px); box-shadow:none; }
+  .btn-nav{ transition:transform .15s ease, box-shadow .15s ease; }
+  .btn-nav:hover{ transform:translateY(-2px); box-shadow:0 4px 0 var(--ink); }
+  .hero-sub{ font-size:.84rem; color:var(--ink-faint); }
+
+  /* ---------- hero entrance ---------- */
+  .hero-anim > *{
+    opacity:0;
+    transform:translateY(16px);
+    animation:heroIn .8s cubic-bezier(.16,.8,.4,1) forwards;
+  }
+  .hero-anim > *:nth-child(1){ animation-delay:.05s; }
+  .hero-anim > *:nth-child(2){ animation-delay:.16s; }
+  .hero-anim > *:nth-child(3){ animation-delay:.27s; }
+  .hero-anim > *:nth-child(4){ animation-delay:.38s; }
+  .hero-anim > *:nth-child(5){ animation-delay:.5s; }
+  @keyframes heroIn{ to{ opacity:1; transform:translateY(0); } }
+  @media (prefers-reduced-motion:reduce){
+    .hero-anim > *{ animation:none; opacity:1; transform:none; }
+  }
+
+  /* ---------- scroll reveal ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.16,.8,.4,1), transform .7s cubic-bezier(.16,.8,.4,1);
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-group.in > *{ opacity:1; transform:translateY(0); }
+  .reveal-group > *{
+    opacity:0; transform:translateY(22px);
+    transition:opacity .6s cubic-bezier(.16,.8,.4,1), transform .6s cubic-bezier(.16,.8,.4,1);
+  }
+  .reveal-group > *:nth-child(1){ transition-delay:0s; }
+  .reveal-group > *:nth-child(2){ transition-delay:.1s; }
+  .reveal-group > *:nth-child(3){ transition-delay:.2s; }
+  @media (prefers-reduced-motion:reduce){
+    .reveal, .reveal-group > *{ opacity:1; transform:none; transition:none; }
+  }
+
+  .card{ transition:transform .18s ease, box-shadow .18s ease; }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 6px 0 var(--ink); }
+
+  /* waveform card */
+  .wave-card{
+    margin:48px 0 0;
+    background:var(--surface);
+    border:1.5px solid var(--ink);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    padding:34px 30px;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    height:120px;
+  }
+  .wave-card i{
+    flex:1 1 auto; display:block; border-radius:3px;
+    background:linear-gradient(180deg,var(--accent-strong),var(--teal));
+    height:var(--h,20%);
+    animation:bar 2.3s ease-in-out infinite;
+    animation-delay:var(--d,0s);
+  }
+  @keyframes bar{ 0%,100%{ transform:scaleY(.5);} 50%{ transform:scaleY(1);} }
+  @media (prefers-reduced-motion:reduce){ .wave-card i{ animation:none; transform:scaleY(.75);} }
+
+  /* ---------- contrast / stats ---------- */
+  .contrast{
+    background:var(--teal);
+    color:var(--cream-on-teal);
+    margin-top:88px;
+    padding:80px 0;
+    border-radius:28px 28px 0 0;
+  }
+  .contrast .eyebrow{ color:var(--teal-soft); justify-content:center; }
+  .contrast h2{ text-align:center; margin-top:18px; font-size:clamp(2rem,5.6vw,3rem); }
+  .contrast .lede{
+    text-align:center; margin:18px auto 0; max-width:30em;
+    color:var(--teal-soft); font-size:1.02rem; line-height:1.6;
+  }
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    margin-top:48px;
+    background:rgba(246,241,218,.18);
+    border:1px solid rgba(246,241,218,.18);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .stat{
+    background:var(--teal);
+    padding:30px 20px;
+    text-align:center;
+  }
+  .stat .num{ font-family:"Instrument Serif",serif; font-size:2.4rem; }
+  .stat .label{ margin-top:8px; font-size:.82rem; color:var(--teal-soft); line-height:1.4; }
+  @media (max-width:640px){ .stat-row{ grid-template-columns:1fr; } }
+
+  /* ---------- how it works ---------- */
+  .how{ padding:88px 0 0; text-align:center; }
+  .how .eyebrow{ justify-content:center; }
+  .how h2{ margin-top:16px; font-size:clamp(1.9rem,5vw,2.7rem); max-width:16em; margin-left:auto; margin-right:auto; }
+
+  .mock{
+    margin-top:48px;
+    background:var(--surface);
+    border:1.5px solid var(--ink);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    padding:22px;
+    text-align:left;
+  }
+  .mock-bar{ display:flex; gap:6px; margin-bottom:18px; }
+  .mock-bar span{ width:9px; height:9px; border-radius:50%; background:var(--line-strong); }
+  .mock-field{
+    border:1px solid var(--line-strong);
+    border-radius:12px;
+    padding:16px 18px;
+    font-size:1.02rem;
+    min-height:60px;
+    display:flex; align-items:center;
+    color:var(--ink-soft);
+  }
+  .mock-field b{ color:var(--ink); font-weight:600; }
+  .mock-field .cursor{
+    display:inline-block; width:2px; height:1.1em; background:var(--ink);
+    margin-left:2px; animation:blink 1s step-end infinite; vertical-align:-2px;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  @media (prefers-reduced-motion:reduce){ .mock-field .cursor{ animation:none; } }
+  .mock-pill{
+    margin-top:14px;
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--bg-alt);
+    border:1px solid var(--line-strong);
+    border-radius:100px;
+    padding:7px 14px;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.76rem;
+    color:var(--ink-soft);
+  }
+  .mock-pill .rec{ width:7px; height:7px; border-radius:50%; background:var(--accent-strong); border:1px solid var(--ink); }
+
+  /* ---------- platforms ---------- */
+  .section-label{
+    text-align:center; margin:96px 0 24px;
+  }
+  .platforms{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:640px){ .platforms{ grid-template-columns:1fr; } }
+  .card{
+    background:var(--surface);
+    border:1.5px solid var(--ink);
+    border-radius:20px;
+    padding:26px;
+    box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .card-top{ display:flex; align-items:center; gap:12px; }
+  .platform-icon{
+    width:38px; height:38px; border-radius:10px;
+    background:var(--bg-alt); border:1px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .platform-icon svg{ width:20px; height:20px; }
+  .platform-name{ font-family:"Instrument Serif",serif; font-size:1.35rem; }
+  .chip{
+    margin-left:auto;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.66rem; text-transform:uppercase; letter-spacing:.05em;
+    padding:3px 9px; border-radius:100px;
+    background:var(--teal); color:var(--cream-on-teal);
+  }
+  .specs{ font-size:.78rem; color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:0 10px; }
+  .specs span:not(:last-child)::after{ content:"·"; margin-left:10px; color:var(--line-strong); }
+  .card .btn-primary{ width:100%; justify-content:center; padding:13px 18px; font-size:.94rem; }
+  .steps{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .steps li{ display:flex; gap:9px; font-size:.86rem; color:var(--ink-soft); }
+  .steps b{ font-family:"IBM Plex Mono",monospace; color:var(--ink); font-size:.76rem; flex:none; width:16px; }
+
+  /* ---------- key box ---------- */
+  .keybox{
+    margin-top:56px;
+    background:var(--bg-alt);
+    border:1.5px dashed var(--line-strong);
+    border-radius:20px;
+    padding:26px 28px;
+    display:flex; align-items:center; gap:22px;
+  }
+  @media (max-width:600px){ .keybox{ flex-direction:column; align-items:flex-start; } }
+  .key-specimen{
+    font-family:"IBM Plex Mono",monospace; font-size:1.1rem; font-weight:500;
+    background:var(--surface); border:1px solid var(--line-strong); border-radius:10px;
+    padding:10px 16px; color:var(--teal); flex:none;
+  }
+  .keybox p{ margin:0; font-size:.88rem; color:var(--ink-soft); line-height:1.6; }
+  .keybox strong{ color:var(--ink); }
+
+  footer{
+    margin-top:72px; padding-top:24px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    font-family:"IBM Plex Mono",monospace; font-size:.72rem; color:var(--ink-faint);
+  }
+  footer a{ color:var(--ink-faint); text-decoration:underline; text-underline-offset:2px; }
+
+  /* ---------- sticky bar ---------- */
+  .sticky{
+    position:fixed; left:0; right:0; bottom:0;
+    background:var(--teal); color:var(--cream-on-teal);
+    border-top:1.5px solid var(--ink);
+    padding:12px 18px;
+    display:flex; align-items:center; gap:14px;
+    transform:translateY(0);
+    transition:transform .25s ease;
+    z-index:20;
+  }
+  .sticky.hidden{ transform:translateY(100%); }
+  .sticky-wave{ display:flex; align-items:center; gap:2px; height:22px; flex:none; }
+  .sticky-wave i{ width:3px; border-radius:2px; background:var(--cream-on-teal); opacity:.85; }
+  .sticky-text{ font-size:.86rem; flex:1 1 auto; min-width:0; }
+  .sticky-text b{ font-family:"Instrument Serif",serif; font-style:italic; font-size:1.05rem; margin-right:6px; }
+  .sticky .btn{ border-color:var(--cream-on-teal); background:var(--accent); color:var(--on-accent); flex:none; padding:9px 16px; font-size:.82rem; }
+  .sticky-close{
+    background:none; border:none; color:var(--cream-on-teal); font-size:1.1rem;
+    cursor:pointer; padding:4px; line-height:1; flex:none; opacity:.7;
+  }
+  @media (max-width:520px){ .sticky-text{ display:none; } }
+</style>
+
+<div class="wrap">
+  <nav>
+    <div class="wordmark">Voxa</div>
+    <a class="btn btn-nav" href="#platforms">Скачать</a>
+  </nav>
+</div>
+
+<div class="wrap hero hero-anim">
+  <div class="eyebrow"><span class="dot"></span>Voxa · Голосовой ввод</div>
+  <h1 class="display">Хватит печатать —<br><em>просто говори.</em></h1>
+  <p class="lede">Зажал клавишу, сказал, отпустил — текст сам появился там, где стоял курсор. В браузере, в Ворде, в любом чате. Распознавание речи работает прямо на устройстве.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#platforms">Скачать бесплатно</a>
+    <div class="hero-sub">Windows и Android · без регистрации</div>
+  </div>
+
+  <div class="wave-card" id="waveform" aria-hidden="true"></div>
+</div>
+
+<div class="contrast">
+  <div class="wrap">
+    <div class="eyebrow reveal">Приватность</div>
+    <h2 class="display reveal">Голос остаётся <em>только у вас</em></h2>
+    <p class="lede reveal">Распознавание идёт локальной моделью — звук не отправляется ни на один сервер. В сеть уходит только то, что вы сами разрешите.</p>
+
+    <div class="stat-row reveal-group">
+      <div class="stat">
+        <div class="num mono">0</div>
+        <div class="label">байт звука уходит в сеть при обычной диктовке</div>
+      </div>
+      <div class="stat">
+        <div class="num mono">1×</div>
+        <div class="label">модель распознавания скачивается один раз, дальше — офлайн</div>
+      </div>
+      <div class="stat">
+        <div class="num mono">3</div>
+        <div class="label">устройства на один лицензионный ключ</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap how">
+  <div class="eyebrow reveal"><span class="dot"></span>Как это работает</div>
+  <h2 class="display reveal">Говори в любом окне — <em>текст сам находит курсор.</em></h2>
+
+  <div class="mock reveal" id="mock">
+    <div class="mock-bar"><span></span><span></span><span></span></div>
+    <div class="mock-field"><b id="typedText"></b><span class="cursor"></span></div>
+    <div class="mock-pill"><span class="rec"></span>говорите — Voxa печатает за вас</div>
+  </div>
+</div>
+
+<div class="wrap" id="platforms">
+  <div class="section-label reveal">
+    <div class="eyebrow" style="justify-content:center;">Скачать</div>
+    <h2 class="display" style="margin-top:14px; font-size:clamp(1.9rem,5vw,2.5rem);">Выберите устройство</h2>
+  </div>
+
+  <div class="platforms reveal-group">
+    <div class="card" id="card-android">
+      <div class="card-top">
+        <div class="platform-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M17.6 9.48l1.84-3.18a.5.5 0 10-.87-.5l-1.86 3.22a10.4 10.4 0 00-8.42 0L6.43 5.8a.5.5 0 10-.87.5L7.4 9.48A9.1 9.1 0 003 17h18a9.1 9.1 0 00-4.4-7.52zM8.5 14a1 1 0 111-1 1 1 0 01-1 1zm7 0a1 1 0 111-1 1 1 0 01-1 1z"/></svg>
+        </div>
+        <div class="platform-name">Android</div>
+        <div class="chip" id="chip-android" hidden>Ваша система</div>
+      </div>
+      <div class="specs mono">
+        <span>Android 8.0+</span>
+        <span>APK</span>
+        <span>5.7 МБ</span>
+        <span>v0.1.0</span>
+      </div>
+      <a class="btn btn-primary" href="https://github.com/seregamen666/voxa/releases/download/v0.1.0/Voxa.apk" target="_blank" rel="noopener">Скачать для Android</a>
+      <ol class="steps">
+        <li><b>01</b><span>Откройте файл на телефоне и разрешите установку</span></li>
+        <li><b>02</b><span>В Voxa включите клавиатуру в настройках</span></li>
+        <li><b>03</b><span>Выберите Voxa активной клавиатурой в любом поле</span></li>
+      </ol>
+    </div>
+
+    <div class="card" id="card-windows">
+      <div class="card-top">
+        <div class="platform-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M3 5.5L10.4 4.5V11.4H3V5.5M11.3 4.4L21 3V11.3H11.3V4.4M3 12.4H10.4V19.3L3 18.3V12.4M11.3 12.4H21V20.9L11.3 19.6V12.4Z"/></svg>
+        </div>
+        <div class="platform-name">Windows</div>
+        <div class="chip" id="chip-windows" hidden>Ваша система</div>
+      </div>
+      <div class="specs mono">
+        <span>Windows 10/11 · 64-bit</span>
+        <span>ZIP</span>
+        <span>106 МБ</span>
+        <span>v0.1.0</span>
+      </div>
+      <a class="btn btn-primary" href="https://github.com/seregamen666/voxa/releases/download/windows-v0.1.0/Voxa-Windows.zip" target="_blank" rel="noopener">Скачать для Windows</a>
+      <ol class="steps">
+        <li><b>01</b><span>Распакуйте архив в любую папку</span></li>
+        <li><b>02</b><span>Запустите Voxa.exe</span></li>
+        <li><b>03</b><span>Зажмите правый Ctrl, скажите фразу, отпустите</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="keybox reveal">
+    <div class="key-specimen">1234-5678-9012</div>
+    <p><strong>Один ключ активации — на все устройства.</strong><br>Ключ из письма после покупки подходит и для Android, и для Windows — до 3 устройств одновременно. Интернет нужен один раз, для проверки ключа, дальше приложение работает офлайн.</p>
+  </div>
+
+  <footer>
+    <span>Voxa · v0.1.0</span>
+    <a href="https://github.com/seregamen666/voxa" target="_blank" rel="noopener">Исходники на GitHub →</a>
+  </footer>
+</div>
+
+<div class="sticky" id="sticky">
+  <div class="sticky-wave" id="stickyWave" aria-hidden="true"></div>
+  <div class="sticky-text"><b>Voxa</b>говори, а не печатай</div>
+  <a class="btn" href="#platforms">Скачать</a>
+  <button class="sticky-close" id="stickyClose" aria-label="Закрыть">✕</button>
+</div>
+
+<script>
+(function(){
+  var ua = navigator.userAgent || "";
+  if (/Android/i.test(ua)) {
+    document.getElementById("card-android").style.borderWidth = "2.5px";
+    document.getElementById("chip-android").hidden = false;
+  } else if (/Windows/i.test(ua)) {
+    document.getElementById("card-windows").style.borderWidth = "2.5px";
+    document.getElementById("chip-windows").hidden = false;
+  }
+})();
+
+(function(){
+  function paintWave(el, n, seedBase){
+    var out = "";
+    for (var i=0;i<n;i++){
+      var h = 20 + Math.round(Math.sin(i*0.7+seedBase)*18 + Math.random()*24 + 18);
+      var d = (Math.random()*2).toFixed(2);
+      out += '<i style="--h:'+h+'%; --d:'+d+'s;"></i>';
+    }
+    el.innerHTML = out;
+  }
+  paintWave(document.getElementById("waveform"), 46, 0);
+
+  var sw = document.getElementById("stickyWave");
+  var bars = "";
+  for (var i=0;i<14;i++){
+    var h = 6 + Math.round(Math.sin(i*0.9)*6 + Math.random()*8);
+    bars += '<i style="height:'+h+'px;"></i>';
+  }
+  sw.innerHTML = bars;
+})();
+
+(function(){
+  var sticky = document.getElementById("sticky");
+  var closeBtn = document.getElementById("stickyClose");
+  var hero = document.querySelector(".hero");
+  closeBtn.addEventListener("click", function(){ sticky.classList.add("hidden"); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) sticky.classList.add("hidden");
+      else sticky.classList.remove("hidden");
+    });
+  }, { threshold: 0 });
+  io.observe(hero);
+})();
+
+(function(){
+  var targets = document.querySelectorAll(".reveal, .reveal-group");
+  var ro = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){
+        e.target.classList.add("in");
+        ro.unobserve(e.target);
+      }
+    });
+  }, { threshold: .2, rootMargin: "0px 0px -40px 0px" });
+  targets.forEach(function(t){ ro.observe(t); });
+})();
+
+(function(){
+  var el = document.getElementById("typedText");
+  var phrase = "Привет! Отправляю макет клиенту сегодня вечером, как договаривались";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var started = false;
+  function type(i){
+    el.textContent = phrase.slice(0, i);
+    if (i < phrase.length) setTimeout(function(){ type(i + 1); }, 26);
+  }
+  var mock = document.getElementById("mock");
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting && !started){
+        started = true;
+        if (reduced){ el.textContent = phrase; }
+        else { type(0); }
+        io.unobserve(mock);
+      }
+    });
+  }, { threshold: .4 });
+  io.observe(mock);
+})();
+</script>
