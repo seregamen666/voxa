@@ -1,0 +1,9 @@
+build/
+.gradle/
+*.iml
+.idea/
+local.properties
+*.apk
+*.aab
+emulator.log
+emulator_err.log
