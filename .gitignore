@@ -7,3 +7,6 @@ local.properties
 *.aab
 emulator.log
 emulator_err.log
+
+# генератор ключей — держим только локально, секрет не должен светиться в публичном репо
+tools/
