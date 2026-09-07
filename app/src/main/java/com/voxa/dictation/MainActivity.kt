@@ -57,11 +57,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun tryActivate() {
         val key = binding.etLicenseKey.text.toString()
-        if (License.activate(this, key)) {
-            binding.tvActivationError.visibility = android.view.View.GONE
-            refreshActivationState()
-        } else {
-            binding.tvActivationError.visibility = android.view.View.VISIBLE
+        binding.tvActivationError.visibility = android.view.View.GONE
+        binding.btnActivate.isEnabled = false
+        binding.btnActivate.text = getString(R.string.activation_checking)
+
+        License.activateAsync(this, key) { result ->
+            binding.btnActivate.isEnabled = true
+            binding.btnActivate.text = getString(R.string.activation_button)
+
+            when (result) {
+                is ActivationResult.Success -> refreshActivationState()
+                is ActivationResult.InvalidKey -> showActivationError(R.string.activation_error)
+                is ActivationResult.DeviceLimitReached -> showActivationError(R.string.activation_error_limit)
+                is ActivationResult.NetworkError -> showActivationError(R.string.activation_error_network)
+            }
         }
+    }
+
+    private fun showActivationError(resId: Int) {
+        binding.tvActivationError.text = getString(resId)
+        binding.tvActivationError.visibility = android.view.View.VISIBLE
     }
 }

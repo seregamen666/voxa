@@ -1,7 +1,16 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+
+val localProps = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+val licenseSecret: String = localProps.getProperty("license.secret")
+    ?: throw GradleException("Добавьте license.secret=... в local.properties (см. tools/generate_key.py)")
 
 android {
     namespace = "com.voxa.dictation"
@@ -13,6 +22,9 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "0.1"
+        buildConfigField("String", "LICENSE_SECRET", "\"$licenseSecret\"")
+        buildConfigField("String", "FIREBASE_PROJECT_ID", "\"voxa-a99ac\"")
+        buildConfigField("String", "FIREBASE_API_KEY", "\"AIzaSyBGTpDZxFINBOdEf8Y9bXqFs7c5iU0B3jI\"")
     }
 
     buildTypes {
@@ -32,6 +44,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

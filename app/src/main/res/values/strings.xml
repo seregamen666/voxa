@@ -14,6 +14,9 @@
     <string name="activation_hint">1234-5678-9012</string>
     <string name="activation_button">Активировать</string>
     <string name="activation_error">Неверный ключ, проверьте и попробуйте снова</string>
+    <string name="activation_error_limit">Этот ключ уже используется на 3 устройствах — лимит исчерпан</string>
+    <string name="activation_error_network">Нет соединения с интернетом — для активации нужен интернет один раз</string>
+    <string name="activation_checking">Проверяем…</string>
     <string name="keyboard_hint_not_activated">Не активировано — откройте приложение Voxa</string>
     <string name="keyboard_hint_idle">Держите — говорите</string>
     <string name="keyboard_hint_listening">Слушаю…</string>
